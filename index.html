@@ -2,62 +2,63 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>🌈 Trig Identity Learning Game!</title>
+  <title>📐 Trig Identity Learning Game</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
-      font-family: Comic Sans MS, cursive, sans-serif;
-      background: linear-gradient(to bottom right, #fcd5ce, #cdb4db);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom right, #fefae0, #d8e2dc);
       text-align: center;
       padding: 50px;
-      color: #333;
+      color: #222;
     }
     h1 {
-      font-size: 2.5em;
-      color: #6a4c93;
+      font-size: 2.8em;
+      color: #3a0ca3;
+      margin-bottom: 20px;
     }
     .box {
-      background-color: #fffbea;
+      background-color: #ffffff;
       border-radius: 20px;
       padding: 30px;
       display: inline-block;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      max-width: 700px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      max-width: 750px;
     }
     button {
-      background-color: #ffadad;
+      background-color: #90e0ef;
       border: none;
       border-radius: 10px;
       padding: 10px 20px;
       margin: 10px;
       font-size: 16px;
       cursor: pointer;
-      transition: 0.3s;
+      transition: background 0.3s ease;
     }
     button:hover {
-      background-color: #ffd6a5;
+      background-color: #caf0f8;
     }
     .correct { color: green; }
     .wrong { color: red; }
     .score { font-size: 18px; margin-top: 10px; }
-    #explanation, #gameSection {
+    #explanationText, #gameSection {
       margin-top: 30px;
       padding: 20px;
-      background-color: #e0c3fc;
+      background-color: #f1f1f1;
       border-radius: 15px;
       display: none;
     }
     #nextBtn {
       display: none;
-      background-color: #caffbf;
+      background-color: #b5ead7;
     }
     canvas {
-      margin-top: 40px;
+      margin-top: 30px;
     }
     .button-link {
       display: inline-block;
       margin-top: 20px;
-      background-color: #bdb2ff;
+      background-color: #ffc8dd;
       color: black;
       padding: 10px 20px;
       border-radius: 10px;
@@ -66,21 +67,20 @@
   </style>
 </head>
 <body>
-  <h1>🌟 Trig Identity Learning Game! 🌟</h1>
+  <h1>📐 Trig Identity Learning Game</h1>
 
   <div class="box" id="homeSection">
     <h2>📘 What is a Trigonometric Identity?</h2>
     <p>
-      A <strong>trigonometric identity</strong> is a math equation that always stays true, no matter the angle! 😊<br><br>
-      These identities use <strong>sine</strong>, <strong>cosine</strong>, <strong>tangent</strong>, and others to simplify problems in geometry and algebra. 💡<br><br>
-      Example: <code>sin²(x) + cos²(x) = 1</code> is always true! 🎯
+      A <strong>trigonometric identity</strong> is a math equation that is always true, no matter the angle!<br>
+      Identities help simplify expressions using <strong>sine</strong>, <strong>cosine</strong>, and <strong>tangent</strong>.<br><br>
+      Example: <code>sin²(x) + cos²(x) = 1</code>
     </p>
 
     <h2>🌍 Real-Life Application</h2>
     <p>
-      🎢 Engineers use <strong>trig identities</strong> to design roller coasters!<br>
-      They calculate curves, angles, and slopes to ensure safety and fun.<br><br>
-      🎯 Example: <code>sin(2x) = 2sin(x)cos(x)</code> helps predict how fast direction changes.
+      Engineers use <strong>trig identities</strong> to design roller coasters 🎢, bridges, and architecture!<br>
+      Example: <code>sin(2x) = 2sin(x)cos(x)</code>
     </p>
     <button onclick="startGame()">🎮 Start the Game!</button>
   </div>
@@ -102,57 +102,71 @@
         question: "🤔 What is sin(2x)?",
         answers: ["2sin(x)cos(x)", "sin²(x) + cos²(x)", "sin(x)cos(x)"],
         correct: "2sin(x)cos(x)",
-        explanation: "This comes from the angle addition formula: sin(a + b) = sin(a)cos(b) + cos(a)sin(b). Let a = b = x!",
+        explanation: "From the angle addition formula: sin(a + b) = sin(a)cos(b) + cos(a)sin(b), set a = b = x!",
         graph: (ctx) => generateGraphData(x => Math.sin(2 * x), x => 2 * Math.sin(x) * Math.cos(x), ['sin(2x)', '2sin(x)cos(x)'])
       },
       {
         question: "🧠 What is cos(2x)?",
         answers: ["cos²(x) - sin²(x)", "2cos(x)", "1 - sin²(x)"],
         correct: "cos²(x) - sin²(x)",
-        explanation: "This identity is one of the double angle formulas. It’s derived from cos(a + b) = cos(a)cos(b) - sin(a)sin(b).",
+        explanation: "This is one form of the double angle formula for cosine.",
         graph: (ctx) => generateGraphData(x => Math.cos(2 * x), x => Math.cos(x)**2 - Math.sin(x)**2, ['cos(2x)', 'cos²(x) - sin²(x)'])
       },
       {
         question: "🎯 What is tan(2x)?",
         answers: ["2tan(x)/(1 - tan²(x))", "tan(x)/2", "sin(x)/cos(x)"],
         correct: "2tan(x)/(1 - tan²(x))",
-        explanation: "This is the double angle formula for tangent. It’s based on the formula for tan(a + b).",
+        explanation: "This is the double angle formula for tangent.",
         graph: (ctx) => generateGraphData(x => Math.tan(2 * x), x => 2 * Math.tan(x) / (1 - Math.pow(Math.tan(x), 2)), ['tan(2x)', '2tan(x)/(1 - tan²(x))'], true)
       },
       {
         question: "🐣 What is sin(x/2)?",
         answers: ["±√[(1 - cos(x))/2]", "cos²(x/2)", "tan(x)/2"],
         correct: "±√[(1 - cos(x))/2]",
-        explanation: "This is the half-angle identity for sine. The ± depends on which quadrant x/2 is in!",
+        explanation: "This is the half-angle identity for sine.",
         graph: (ctx) => generateGraphData(x => Math.sin(x/2), x => Math.sqrt((1 - Math.cos(x)) / 2), ['sin(x/2)', '±√[(1 - cos(x))/2]'])
       },
       {
         question: "🧩 What is cos(x/2)?",
         answers: ["±√[(1 + cos(x))/2]", "2cos(x)", "cos(x)/2"],
         correct: "±√[(1 + cos(x))/2]",
-        explanation: "This is the half-angle identity for cosine. It’s very useful in solving tricky trig equations.",
+        explanation: "This is the half-angle identity for cosine.",
         graph: (ctx) => generateGraphData(x => Math.cos(x/2), x => Math.sqrt((1 + Math.cos(x)) / 2), ['cos(x/2)', '√[(1 + cos(x))/2]'])
       },
       {
         question: "🌀 What is tan(x/2)?",
         answers: ["±√[(1 - cos(x))/(1 + cos(x))]", "cos(x)/sin(x)", "2tan(x)"],
         correct: "±√[(1 - cos(x))/(1 + cos(x))]",
-        explanation: "This is one of the half-angle identities for tangent. You can also use tan(x/2) = sin(x)/(1 + cos(x)).",
+        explanation: "One of the half-angle identities for tangent.",
         graph: (ctx) => generateGraphData(x => Math.tan(x/2), x => Math.sqrt((1 - Math.cos(x)) / (1 + Math.cos(x))), ['tan(x/2)', '√[(1 - cos(x))/(1 + cos(x))]'])
+      },
+      {
+        question: "📐 What is another form of cos(2x)?",
+        answers: ["2cos²(x) - 1", "1 - 2cos²(x)", "cos²(x) - sin²(x)"],
+        correct: "2cos²(x) - 1",
+        explanation: "An alternate form of the double-angle identity for cosine.",
+        graph: (ctx) => generateGraphData(x => Math.cos(2 * x), x => 2 * Math.cos(x) ** 2 - 1, ['cos(2x)', '2cos²(x) - 1'])
+      },
+      {
+        question: "🎲 Another form of cos(2x) is?",
+        answers: ["1 - 2sin²(x)", "2sin²(x) - 1", "1 + 2sin²(x)"],
+        correct: "1 - 2sin²(x)",
+        explanation: "Derived by converting everything to sine using the identity sin²(x) + cos²(x) = 1.",
+        graph: (ctx) => generateGraphData(x => Math.cos(2 * x), x => 1 - 2 * Math.sin(x) ** 2, ['cos(2x)', '1 - 2sin²(x)'])
       }
     ];
 
     let current = 0;
     let score = 0;
 
-    function generateGraphData(func1, func2, labels, allowLargeValues = false) {
+    function generateGraphData(func1, func2, labels) {
       const xVals = [], y1 = [], y2 = [];
       for (let x = -Math.PI * 2; x <= Math.PI * 2; x += 0.1) {
         xVals.push(x.toFixed(2));
         try {
           y1.push(func1(x));
           y2.push(func2(x));
-        } catch (e) {
+        } catch {
           y1.push(null);
           y2.push(null);
         }
@@ -172,7 +186,7 @@
       }
       const q = questions[current];
       document.getElementById("question").textContent = q.question;
-      document.getElementById("answers").innerHTML = q.answers.map(answer => `<button onclick="checkAnswer('${answer}')">${answer}</button>`).join("");
+      document.getElementById("answers").innerHTML = q.answers.map(answer => `<button onclick=\"checkAnswer('${answer}')\">${answer}</button>`).join("");
       document.getElementById("feedback").textContent = "";
       document.getElementById("explanationText").textContent = "";
       document.getElementById("nextBtn").style.display = "none";
@@ -186,7 +200,7 @@
       const ctx = canvas.getContext("2d");
 
       if (selected === q.correct) {
-        feedback.textContent = "✅ Yippee! That's right!";
+        feedback.textContent = "✅ That's correct!";
         feedback.className = "correct";
         explanationText.textContent = "📘 Why? " + q.explanation;
         canvas.style.display = "block";
@@ -209,7 +223,7 @@
         });
         score++;
       } else {
-        feedback.textContent = "❌ Oops! Try the next one!";
+        feedback.textContent = "❌ Not quite! Try the next one.";
         feedback.className = "wrong";
         explanationText.textContent = "";
         canvas.style.display = "none";
